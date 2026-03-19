@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class MartaTrainController {
 
-    private MartaService service;
+    private final MartaService service;
 
     public MartaTrainController(MartaService service){
         this.service = service;
