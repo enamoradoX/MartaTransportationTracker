@@ -15,7 +15,7 @@ import java.util.List;
 public class MartaService {
     private final String MARTA_URL = "https://developerservices.itsmarta.com:18096/itsmarta/railrealtimearrivals/developerservices/traindata";
 
-    @Value("${marta.api.key[1]}")
+    @Value("${marta.api.key}")
     private String apiKey;
 
     private final RestTemplate restTemplate;
