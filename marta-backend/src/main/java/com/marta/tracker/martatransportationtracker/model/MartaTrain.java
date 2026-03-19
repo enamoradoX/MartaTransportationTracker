@@ -28,4 +28,15 @@ public class MartaTrain {
 
     @JsonProperty("TRAIN_ID")
     private String trainId;
+
+    // --- New Fields for Mapping ---
+
+    @JsonProperty("LATITUDE")
+    private Double latitude;
+
+    @JsonProperty("LONGITUDE")
+    private Double longitude;
+
+    @JsonProperty("DIRECTION")
+    private String direction; // e.g., "N", "S", "E", "W"
 }
