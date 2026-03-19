@@ -47,7 +47,7 @@ public class MartaService {
                 System.out.println("✅ Connection Successful! Found " + trains.length + " active trains.");
 
                 // Print the first 3 trains to keep the console clean
-                for (int i = 0; i < Math.min(trains.length, 3); i++) {
+                for (int i = 0; i < trains.length; i++) {
                     MartaTrain t = trains[i];
                     System.out.printf("📍 [%s Line] Train %s at %s - Arriving in: %s%n",
                             t.getLine(), t.getTrainId(), t.getStation(), t.getWaitingTime());
