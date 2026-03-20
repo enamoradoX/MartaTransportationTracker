@@ -1,1 +1,15 @@
-<p>marta-map works!</p>
+<section class="map-frame">
+  <header class="map-header">
+	<h2>MARTA Rail Tracker</h2>
+	<span class="map-subtitle">Live updates every 10 seconds</span>
+  </header>
+
+  <div class="map-shell">
+	<div id="map"></div>
+
+	<div class="zoom-controls" aria-label="Map zoom controls">
+	  <button type="button" (click)="zoomIn()" aria-label="Zoom in">+</button>
+	  <button type="button" (click)="zoomOut()" aria-label="Zoom out">-</button>
+	</div>
+  </div>
+</section>
