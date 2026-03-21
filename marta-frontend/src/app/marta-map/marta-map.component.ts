@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { MartaService } from '../marta.service';
 import { Subscription, timer } from 'rxjs';
@@ -12,16 +13,34 @@ export class MartaMapComponent implements OnInit, OnDestroy {
   private map!: L.Map;
   private markers: L.Marker[] = [];
   private refreshSubscription!: Subscription;
+  private railCasingLayer?: L.GeoJSON;
+  private railColorLayer?: L.GeoJSON;
   private readonly DEFAULT_HEADING_DEG = 45;
   private readonly TRACK_SNAP_STEP_DEG = 45;
   private readonly SNAP_HYSTERESIS_DEG = 18;
   private readonly MAX_TURN_PER_TICK_DEG = 24;
   private readonly trainPoseById = new Map<string, { lat: number; lng: number; heading: number }>();
 
-  constructor(private martaService: MartaService) {}
+  readonly lineLegend = [
+    { name: 'Red', color: '#ed1c24' },
+    { name: 'Gold', color: '#f2a900' },
+    { name: 'Blue', color: '#005596' },
+    { name: 'Green', color: '#00843d' }
+  ];
+
+  private readonly lineColorByName: Record<string, string> = {
+    RED: '#ed1c24',
+    GOLD: '#f2a900',
+    BLUE: '#005596',
+    GREEN: '#00843d'
+  };
+
+  constructor(private martaService: MartaService, private http: HttpClient) {}
 
   ngOnInit() {
     this.initMap();
+    this.initRailPane();
+    this.loadRailLines();
 
     // Start the "Heartbeat": Fetch data every 10 seconds
     this.refreshSubscription = timer(0, 10000).subscribe(() => {
@@ -49,6 +68,62 @@ export class MartaMapComponent implements OnInit, OnDestroy {
       L.latLng(34.1, -84.1)  // Northeast corner
     );
     this.map.setMaxBounds(atlantaBounds);
+  }
+
+  private initRailPane(): void {
+    if (!this.map.getPane('railPane')) {
+      this.map.createPane('railPane');
+    }
+
+    const railPane = this.map.getPane('railPane');
+    if (railPane) {
+      railPane.style.zIndex = '350'; // Keep rails above tiles and below markers.
+    }
+  }
+
+  private loadRailLines(): void {
+    this.http.get<any>('assets/marta-rail-lines.geojson').subscribe({
+      next: (geojson) => this.drawRailLines(geojson),
+      error: (err) => console.error('Could not load MARTA rail GeoJSON', err)
+    });
+  }
+
+  private drawRailLines(geojson: any): void {
+    if (!this.map || !geojson) {
+      return;
+    }
+
+    if (this.railCasingLayer) {
+      this.map.removeLayer(this.railCasingLayer);
+    }
+    if (this.railColorLayer) {
+      this.map.removeLayer(this.railColorLayer);
+    }
+
+    this.railCasingLayer = L.geoJSON(geojson, {
+      pane: 'railPane',
+      style: {
+        color: '#1f2937',
+        weight: 11,
+        opacity: 0.95,
+        lineCap: 'round',
+        lineJoin: 'round'
+      }
+    }).addTo(this.map);
+
+    this.railColorLayer = L.geoJSON(geojson, {
+      pane: 'railPane',
+      style: (feature: any) => {
+        const line = (feature?.properties?.line || '').toUpperCase();
+        return {
+          color: this.lineColorByName[line] || '#64748b',
+          weight: 7,
+          opacity: 0.98,
+          lineCap: 'round',
+          lineJoin: 'round'
+        };
+      }
+    }).addTo(this.map);
   }
 
   zoomIn(): void {
@@ -298,6 +373,12 @@ export class MartaMapComponent implements OnInit, OnDestroy {
     // Crucial: Stop the timer if the user closes the app
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
+    }
+    if (this.map && this.railCasingLayer) {
+      this.map.removeLayer(this.railCasingLayer);
+    }
+    if (this.map && this.railColorLayer) {
+      this.map.removeLayer(this.railColorLayer);
     }
   }
 }

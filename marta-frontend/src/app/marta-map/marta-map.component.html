@@ -11,5 +11,15 @@
 	  <button type="button" (click)="zoomIn()" aria-label="Zoom in">+</button>
 	  <button type="button" (click)="zoomOut()" aria-label="Zoom out">-</button>
 	</div>
+
+	<div class="line-legend" aria-label="MARTA line legend">
+	  <h3>Rail Lines</h3>
+	  <ul>
+		<li *ngFor="let line of lineLegend">
+		  <span class="line-swatch" [style.backgroundColor]="line.color" aria-hidden="true"></span>
+		  <span class="line-name">{{ line.name }}</span>
+		</li>
+	  </ul>
+	</div>
   </div>
 </section>
