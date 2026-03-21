@@ -1,0 +1,192 @@
+.map-frame {
+  max-width: 1220px;
+  margin: 16px auto;
+  padding: 14px;
+  border: 1px solid #2c3e50;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #17212b 0%, #111820 100%);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.map-header h2 {
+  margin: 0;
+  color: #eef4ff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.map-subtitle {
+  color: #9fb6d1;
+  font-size: 0.85rem;
+}
+
+.map-shell {
+  position: relative;
+}
+
+#map {
+  height: 600px;
+  width: 100%;
+  border: 2px solid #314457;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.zoom-controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.zoom-controls button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #4c6279;
+  border-radius: 8px;
+  background: #0f1720;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.zoom-controls button:hover {
+  background: #1d2a37;
+}
+
+.zoom-controls button:active {
+  transform: translateY(1px);
+}
+
+:host ::ng-deep .marta-train-icon-wrapper {
+  background: transparent;
+  border: none;
+}
+
+:host ::ng-deep .marta-train-heading {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 50%;
+}
+
+:host ::ng-deep .marta-train-iso {
+  width: 18px;
+  height: 26px;
+  position: relative;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+:host ::ng-deep .marta-train-iso-body {
+  position: absolute;
+  left: 2px;
+  top: 7px;
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+:host ::ng-deep .marta-train-iso-roof {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 14px;
+  height: 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+:host ::ng-deep .marta-train-iso-side {
+  display: none;
+}
+
+:host ::ng-deep .marta-train-cab {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  width: 14px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .marta-train-nose {
+  position: absolute;
+  left: 4px;
+  top: -3px;
+  width: 10px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 3px 3px 0 0;
+}
+
+:host ::ng-deep .marta-train-wheel {
+  display: none;
+}
+
+:host ::ng-deep .marta-train-wheel.wheel-a {
+  left: 6px;
+}
+
+:host ::ng-deep .marta-train-wheel.wheel-b {
+  left: 18px;
+}
+
+:host ::ng-deep .marta-train-window {
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(236, 248, 255, 0.95);
+  box-shadow: inset 0 -1px 0 rgba(120, 152, 178, 0.35);
+}
+
+:host ::ng-deep .marta-train-iso.line-red .marta-train-iso-body,
+:host ::ng-deep .marta-train-iso.line-red {
+  background: linear-gradient(180deg, #f45057, #d2151e);
+}
+
+:host ::ng-deep .marta-train-iso.line-gold .marta-train-iso-body,
+:host ::ng-deep .marta-train-iso.line-gold {
+  background: linear-gradient(180deg, #f7c13b, #de9700);
+}
+
+:host ::ng-deep .marta-train-iso.line-blue .marta-train-iso-body,
+:host ::ng-deep .marta-train-iso.line-blue {
+  background: linear-gradient(180deg, #1e75b9, #004e89);
+}
+
+:host ::ng-deep .marta-train-iso.line-green .marta-train-iso-body,
+:host ::ng-deep .marta-train-iso.line-green {
+  background: linear-gradient(180deg, #1ba75a, #007839);
+}
+
+:host ::ng-deep .marta-train-iso.line-default .marta-train-iso-body,
+:host ::ng-deep .marta-train-iso.line-default {
+  background: linear-gradient(180deg, #556477, #334155);
+}
+

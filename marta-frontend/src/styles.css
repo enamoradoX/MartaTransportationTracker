@@ -1,9 +1,9 @@
 /* Fix for Leaflet marker icons not showing up */
 /* This forces the map to use the official Leaflet icons from a CDN */
-.leaflet-marker-icon {
+.leaflet-marker-icon:not(.marta-train-icon-wrapper) {
     content: url('https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png');
 }
-.leaflet-marker-shadow {
+.leaflet-marker-shadow:not(.marta-train-icon-wrapper) {
     content: url('https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png');
 }
 .leaflet-default-icon-path {
